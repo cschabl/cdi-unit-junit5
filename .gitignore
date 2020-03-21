@@ -1,0 +1,10 @@
+target
+build
+.*
+!/.gitignore
+!/.travis.yml
+# IntelliJ
+*.iml
+# Eclipse
+.classpath
+.project
