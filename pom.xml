@@ -94,4 +94,9 @@
 		</plugins>
 	</build>
 
+	<scm>
+		<connection>scm:git:ssh://git@github.com/cschabl/cdi-unit-junit5.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/cschabl/cdi-unit-junit5.git</developerConnection>
+		<url>https://github.com/cschabl/cdi-unit-junit5.git</url>
+	</scm>
 </project>
