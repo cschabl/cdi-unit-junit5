@@ -36,6 +36,7 @@
 	</licenses>
 
 	<dependencies>
+		<!-- Version of CDI Unit and Weld dependency should be explicitly declared by consuming project -->
 		<dependency>
 			<groupId>org.jglue.cdi-unit</groupId>
 			<artifactId>cdi-unit</artifactId>
@@ -60,10 +61,11 @@
 			<version>${junit.jupiter.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- CDI Unit 4.1.0 has a runtime dependency on JUnit 4 (see https://github.com/BrynCooke/cdi-unit/pull/155) -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.13</version>
 			<scope>runtime</scope>
 		</dependency>
 
