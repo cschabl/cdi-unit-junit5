@@ -7,6 +7,7 @@
 	<artifactId>cdi-unit-junit5</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<description>CDI-Unit extension for JUnit 5</description>
+	<url>https://github.com/cschabl/cdi-unit-junit5</url>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -99,6 +100,6 @@
 	<scm>
 		<connection>scm:git:ssh://git@github.com/cschabl/cdi-unit-junit5.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/cschabl/cdi-unit-junit5.git</developerConnection>
-		<url>https://github.com/cschabl/cdi-unit-junit5.git</url>
+		<url>https://github.com/cschabl/cdi-unit-junit5/tree/master</url>
 	</scm>
 </project>
