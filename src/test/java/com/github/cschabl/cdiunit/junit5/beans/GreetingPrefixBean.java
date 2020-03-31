@@ -1,4 +1,4 @@
-package de.schablinski.cdiunit.beans;
+package com.github.cschabl.cdiunit.junit5.beans;
 
 public class GreetingPrefixBean {
 

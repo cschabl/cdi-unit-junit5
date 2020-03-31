@@ -1,6 +1,6 @@
-package de.schablinski.cdiunit;
+package com.github.cschabl.cdiunit.junit5;
 
-import de.schablinski.cdiunit.beans.ServiceBean;
+import com.github.cschabl.cdiunit.junit5.beans.ServiceBean;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

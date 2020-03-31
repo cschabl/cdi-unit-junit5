@@ -1,4 +1,4 @@
-package de.schablinski.cdiunit;
+package com.github.cschabl.cdiunit.junit5;
 
 import org.jboss.weld.bootstrap.api.CDI11Bootstrap;
 import org.jboss.weld.bootstrap.spi.Deployment;
