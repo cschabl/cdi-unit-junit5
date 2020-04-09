@@ -1,5 +1,6 @@
 package com.github.cschabl.cdiunit.junit5;
 
+import org.jboss.weld.bootstrap.api.Bootstrap;
 import org.jboss.weld.bootstrap.api.CDI11Bootstrap;
 import org.jboss.weld.bootstrap.spi.Deployment;
 import org.jboss.weld.environment.se.Weld;
@@ -7,6 +8,7 @@ import org.jboss.weld.environment.se.WeldContainer;
 import org.jboss.weld.resources.spi.ResourceLoader;
 import org.jglue.cdiunit.internal.TestConfiguration;
 import org.jglue.cdiunit.internal.Weld11TestUrlDeployment;
+import org.jglue.cdiunit.internal.WeldTestUrlDeployment;
 import org.junit.jupiter.api.extension.*;
 
 import javax.naming.InitialContext;
@@ -47,6 +49,16 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
                 protected Deployment createDeployment(ResourceLoader resourceLoader, CDI11Bootstrap bootstrap) {
                     try {
                         return new Weld11TestUrlDeployment(resourceLoader, bootstrap, testConfig);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                // override for Weld 1.x
+                @SuppressWarnings("unused")
+                protected Deployment createDeployment(ResourceLoader resourceLoader, Bootstrap bootstrap) {
+                    try {
+                        return new WeldTestUrlDeployment(resourceLoader, bootstrap, testConfig);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
