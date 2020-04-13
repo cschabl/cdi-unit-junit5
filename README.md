@@ -28,7 +28,7 @@ class MyTest {
 
 Add the cdi-unit-junit5 dependency:
 
-```
+```xml
 <dependency>
   <groupId>com.github.cschabl.cdi-unit-junit5</groupId>
   <artifactId>cdi-unit-junit5</artifactId>
@@ -37,9 +37,9 @@ Add the cdi-unit-junit5 dependency:
 </dependency>
 ```
 
-Make sure you've added the CDI-Unit dependency and the prefereed Weld SE dependency:
+Make sure you've added the CDI-Unit dependency and the prefered Weld SE dependency:
 
-```
+```xml
 <dependency>
   <groupId>org.jglue.cdi-unit</groupId>
   <artifactId>cdi-unit</artifactId>
@@ -48,7 +48,7 @@ Make sure you've added the CDI-Unit dependency and the prefereed Weld SE depende
 </dependency>
 ```
 
-``
+```xml
 <dependency>
   <groupId>org.jboss.weld.se</groupId>
   <!-- or weld-se -->
@@ -70,7 +70,7 @@ And the JUnit 5 dependencies:
 </dependency>
 ```
 
-```
+```xml
 <dependency>
   <groupId>org.junit.jupiter</groupId>
   <artifactId>junit-jupiter-engine</artifactId>
