@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(CdiUnitExtension.class)
-class TestCdiUnitRunner extends BaseTest {
+class TestCdiUnitExtension extends BaseTest {
 
     @Inject
     private AImplementation1 aImpl;
