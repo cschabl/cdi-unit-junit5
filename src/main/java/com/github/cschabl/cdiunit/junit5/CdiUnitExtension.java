@@ -18,7 +18,21 @@ import java.lang.reflect.Method;
 import java.net.URL;
 
 /**
- * CdiUnitExtension is a JUnit5 test instance factory that creates test instances as CDI beans.
+ * CdiUnitExtension is a JUnit5 test instance factory that uses a CDI container to create unit test objects.
+ * Simply add <code>&#064;ExtendWith(CdiUnitExtension.class)</code> to your test class.
+ *
+ * <pre>
+ *   <code>
+ *
+ *  &#064;ExtendWith(CdiUnitExtension.class) // Runs the test with CDI-Unit
+ *  class MyTest {
+ *     &#064;Inject
+ *     MyBean beanUnderTest; // This will be injected before the tests are run!
+ *
+ *     ... //The rest of the test goes here.
+ *   }
+ *   </code>
+ * </pre>
  */
 public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback, BeforeEachCallback
 {
