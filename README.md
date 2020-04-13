@@ -1,2 +1,110 @@
 # cdi-unit-junit5
 JUnit 5 Extension for [CDI-Unit](https://github.com/BrynCooke/cdi-unit).
+
+`CdiUnitExtension` of this project is the JUnit 5 counterpart of the JUnit 4 runner `CdiRunner` of CDI-Unit.
+
+## Usage
+
+```java
+import cm.github.cschabl.cdiunit.junit5.CdiUnitExtension;
+
+@ExtendWith(CdiUnitExtension.class) // Runs the test with CDI-Unit
+class MyTest {
+    @Inject
+     MyBean beanUnderTest; // This will be injected before the tests are run!
+ 
+      //The rest of the test goes here.
+}
+```
+
+## Adding cdi-unit-junit5 to your project
+
+### Prerequisites
+
+* JUnit 5.3 or higher
+* CDI-Unit 4.x
+
+### Maven
+
+Add the cdi-unit-junit5 dependency:
+
+```
+<dependency>
+  <groupId>com.github.cschabl.cdi-unit-junit5</groupId>
+  <artifactId>cdi-unit-junit5</artifactId>
+  <version>0.1</version>
+  <scope>test</scope>
+</dependency>
+```
+
+Make sure you've added the CDI-Unit dependency and the prefereed Weld SE dependency:
+
+```
+<dependency>
+  <groupId>org.jglue.cdi-unit</groupId>
+  <artifactId>cdi-unit</artifactId>
+  <version>${cdi-unit-version}</version>
+  <scope>test</scope>
+</dependency>
+```
+
+``
+<dependency>
+  <groupId>org.jboss.weld.se</groupId>
+  <!-- or weld-se -->
+  <artifactId>weld-se-core</artifactId>
+  <!-- Your preferred Weld version: -->
+  <version>${weld.version}</version>
+  <scope>test</scope>
+</dependency>
+```
+
+And the JUnit 5 dependencies:
+
+```xml
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-api</artifactId>
+  <version>$${junit5-version}</version>
+  <scope>test</scope>
+</dependency>
+```
+
+```
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-engine</artifactId>
+  <version>$${junit5-version}</version>
+  <scope>test</scope>
+</dependency>
+```
+
+### Gradle
+
+```
+dependencies {
+    ...
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit5-version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5-version}"
+
+    testImplementation "org.jglue.cdi-unit:cdi-unit:${cdi-unit-version}"
+    testImplementation "org.jboss.weld.se:weld-se-core:${weld-version}"
+
+    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:0.1"
+    
+    ...
+}
+```
+
+### Restrictions
+
+* Nested Tests (@Nested) aren't supported.
+* Test class constructors with parameters, i.e. JUnit 5 dependency injection to constructors.
+* Probably further JUnit-5-specific features.
+
+### Liabilities
+
+cdi-unit-junit5 has a transitive dependency on JUnit 4, because CDI-Unit has one, 
+but assumes that the consuming project declares it explicitly (see [CDI-Unit PR #155](https://github.com/BrynCooke/cdi-unit/pull/155)). 
+To avoid unexpected exceptions at runtime with JUnit 5, 
+cdi-unit-junit5 has an explicit dependency on JUnit 4.12.
