@@ -2,6 +2,7 @@ target
 build
 .*
 !/.gitignore
+!/.mvn
 !/.travis.yml
 # IntelliJ
 *.iml
