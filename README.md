@@ -100,9 +100,12 @@ dependencies {
 
 ### Restrictions
 
-* Nested Tests (@Nested) aren't supported.
+The following features aren't supported: 
+
+* Nested Tests (@Nested)
 * Test class constructors with parameters, i.e. JUnit 5 dependency injection to constructors.
 * Probably further JUnit-5-specific features.
+* CDI extension `@org.jglue.cdiunit.ProducerConfig`.
 
 ### Liabilities
 
