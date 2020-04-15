@@ -3,6 +3,8 @@ JUnit 5 Extension for [CDI-Unit](https://github.com/BrynCooke/cdi-unit).
 
 `CdiUnitExtension` of this project is the JUnit 5 counterpart of the JUnit 4 runner `CdiRunner` of CDI-Unit.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.cschabl.cdi-unit-junit5/cdi-unit-junit5/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.cschabl.cdi-unit-junit5/cdi-unit-junit5/badge.svg)
+
 ## Usage
 
 ```java
