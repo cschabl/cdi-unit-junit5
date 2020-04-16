@@ -51,6 +51,7 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
         Class<?> testClass = extensionContext.getTestClass()
             .orElseThrow(() -> new TestInstantiationException("test class required"));
 
+        // TODO: Use TestWatcher.testDisabled() interface introduced in JUnit 5.4
         if (container != null && container.isRunning()) {
             // running container from a previous call of createTestInstance for a @Disabled test method
             container.shutdown();
