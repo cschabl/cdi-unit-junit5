@@ -4,7 +4,7 @@
 
 	<groupId>com.github.cschabl.cdi-unit-junit5</groupId>
 	<artifactId>cdi-unit-junit5</artifactId>
-	<version>0.2</version>
+	<version>0.3-SNAPSHOT</version>
 	<name>CDI-Unit-JUnit-Extension</name>
 	<description>JUnit 5 extension for running CDI-Unit tests</description>
 	<url>https://github.com/cschabl/cdi-unit-junit5</url>
