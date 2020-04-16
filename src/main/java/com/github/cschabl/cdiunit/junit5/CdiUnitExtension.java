@@ -51,7 +51,10 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
         Class<?> testClass = extensionContext.getTestClass()
             .orElseThrow(() -> new TestInstantiationException("test class required"));
 
-
+        if (container != null && container.isRunning()) {
+            // running container from a previous call of createTestInstance for a @Disabled test method
+            container.shutdown();
+        }
 
         try {
             // extensionContext.getTestMethod() is an empty optional, here
