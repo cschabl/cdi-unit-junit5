@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.inject.Inject;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Actually, a test driver only. Don't know how to assert that the extension shuts down a running Weld container of
  * a disabled test.

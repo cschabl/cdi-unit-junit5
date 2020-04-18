@@ -16,6 +16,8 @@ import javax.naming.NamingException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * CdiUnitExtension is a JUnit5 test instance factory that uses a CDI container to create unit test objects.
@@ -34,8 +36,10 @@ import java.net.URL;
  *   </code>
  * </pre>
  */
-public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback, BeforeEachCallback
+public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback, BeforeEachCallback, TestWatcher
 {
+    private static final Logger logger = Logger.getLogger(CdiUnitExtension.class.getName());
+
     private static final String ABSENT_CODE_PREFIX = "Absent Code attribute in method that is not native or abstract in class file ";
     private static final String JNDI_FACTORY_PROPERTY = "java.naming.factory.initial";
 
@@ -51,10 +55,10 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
         Class<?> testClass = extensionContext.getTestClass()
             .orElseThrow(() -> new TestInstantiationException("test class required"));
 
-        // TODO: Use TestWatcher.testDisabled() interface introduced in JUnit 5.4
+        logger.fine(() -> "testClass=" + testClass.getName() + ", lifecycle=" + extensionContext.getTestInstanceLifecycle());
+
         if (container != null && container.isRunning()) {
-            // running container from a previous call of createTestInstance for a @Disabled test method
-            container.shutdown();
+            logger.warning("previous container still running");
         }
 
         try {
@@ -94,6 +98,8 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
+        logger.finer(() -> "testMethod=" + extensionContext.getRequiredTestMethod().getName());
+
         oldFactory = System.getProperty(JNDI_FACTORY_PROPERTY);
 
         if (oldFactory == null) {
@@ -106,14 +112,32 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
 
     @Override
     public void afterEach(ExtensionContext context) throws NamingException {
-        initialContext.close();
-        weld.shutdown();
+        logger.finer(() -> "testMethod=" + context.getRequiredTestMethod().getName());
 
-        if (oldFactory != null) {
-            System.setProperty(JNDI_FACTORY_PROPERTY, oldFactory);
-        } else {
-            System.clearProperty(JNDI_FACTORY_PROPERTY);
+        shutdownWeld();
+    }
+
+    @Override
+    public void testDisabled(ExtensionContext extensionContext, Optional<String> optional) {
+        logger.finer(() -> "testMethod=" + extensionContext.getRequiredTestMethod().getName());
+
+        try {
+            shutdownWeld();
+        } catch (NamingException e) {
+            logger.warning("testDisabled" + e.getMessage());
         }
+    }
+
+    @Override
+    public void testSuccessful(ExtensionContext extensionContext) {
+    }
+
+    @Override
+    public void testAborted(ExtensionContext extensionContext, Throwable throwable) {
+    }
+
+    @Override
+    public void testFailed(ExtensionContext extensionContext, Throwable throwable) {
     }
 
     private TestConfiguration createTestConfiguration(Class<?> clazz, Method testMethod) {
@@ -132,6 +156,17 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
                 + url.toString().substring(9, url.toString().indexOf("!")) + "' from your classpath");
         } else {
             return e;
+        }
+    }
+
+    private void shutdownWeld() throws NamingException {
+        initialContext.close();
+        weld.shutdown();
+
+        if (oldFactory != null) {
+            System.setProperty(JNDI_FACTORY_PROPERTY, oldFactory);
+        } else {
+            System.clearProperty(JNDI_FACTORY_PROPERTY);
         }
     }
 }
