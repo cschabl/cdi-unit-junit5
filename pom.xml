@@ -177,5 +177,20 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>test-logging</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.22.2</version>
+						<configuration>
+							<argLine>-Djava.util.logging.config.file=./src/test/resources/logging-test.properties</argLine>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>
