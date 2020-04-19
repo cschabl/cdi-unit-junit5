@@ -9,6 +9,7 @@ import org.jboss.weld.resources.spi.ResourceLoader;
 import org.jglue.cdiunit.internal.TestConfiguration;
 import org.jglue.cdiunit.internal.Weld11TestUrlDeployment;
 import org.jglue.cdiunit.internal.WeldTestUrlDeployment;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.*;
 
 import javax.naming.InitialContext;
@@ -36,12 +37,15 @@ import java.util.logging.Logger;
  *   </code>
  * </pre>
  */
-public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback, BeforeEachCallback, TestWatcher
+public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback, TestWatcher, AfterAllCallback,
+        TestInstancePostProcessor
 {
     private static final Logger logger = Logger.getLogger(CdiUnitExtension.class.getName());
 
     private static final String ABSENT_CODE_PREFIX = "Absent Code attribute in method that is not native or abstract in class file ";
     private static final String JNDI_FACTORY_PROPERTY = "java.naming.factory.initial";
+
+    private TestInstance.Lifecycle lifecycle;
 
     private Weld weld;
     private WeldContainer container;
@@ -56,6 +60,8 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
             .orElseThrow(() -> new TestInstantiationException("test class required"));
 
         logger.fine(() -> "testClass=" + testClass.getName() + ", lifecycle=" + extensionContext.getTestInstanceLifecycle());
+
+        lifecycle = extensionContext.getTestInstanceLifecycle().orElse(TestInstance.Lifecycle.PER_METHOD);
 
         if (container != null && container.isRunning()) {
             logger.warning("previous container still running");
@@ -97,34 +103,31 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
     }
 
     @Override
-    public void beforeEach(ExtensionContext extensionContext) throws Exception {
-        logger.finer(() -> "testMethod=" + extensionContext.getRequiredTestMethod().getName());
+    public void postProcessTestInstance(Object o, ExtensionContext extensionContext) throws Exception {
+        logger.finer(() -> "testClass=" + extensionContext.getTestClass());
 
-        oldFactory = System.getProperty(JNDI_FACTORY_PROPERTY);
-
-        if (oldFactory == null) {
-            System.setProperty(JNDI_FACTORY_PROPERTY, "org.jglue.cdiunit.internal.naming.CdiUnitContextFactory");
-        }
-
-        initialContext = new InitialContext();
-        initialContext.bind("java:comp/BeanManager", container.getBeanManager());
+        bindBeanManagerToInitialContext();
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws NamingException {
         logger.finer(() -> "testMethod=" + context.getRequiredTestMethod().getName());
 
-        shutdownWeld();
+        if (lifecycle == TestInstance.Lifecycle.PER_METHOD) {
+            shutdownWeld();
+        }
     }
 
     @Override
     public void testDisabled(ExtensionContext extensionContext, Optional<String> optional) {
         logger.finer(() -> "testMethod=" + extensionContext.getRequiredTestMethod().getName());
 
-        try {
-            shutdownWeld();
-        } catch (NamingException e) {
-            logger.warning("testDisabled" + e.getMessage());
+        if (lifecycle == TestInstance.Lifecycle.PER_METHOD) {
+            try {
+                shutdownWeld();
+            } catch (NamingException e) {
+                logger.warning("testDisabled" + e.getMessage());
+            }
         }
     }
 
@@ -138,6 +141,13 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
 
     @Override
     public void testFailed(ExtensionContext extensionContext, Throwable throwable) {
+    }
+
+    @Override
+    public void afterAll(ExtensionContext extensionContext) throws Exception {
+        if (lifecycle == TestInstance.Lifecycle.PER_CLASS) {
+            shutdownWeld();
+        }
     }
 
     private TestConfiguration createTestConfiguration(Class<?> clazz, Method testMethod) {
@@ -157,6 +167,17 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
         } else {
             return e;
         }
+    }
+
+    private void bindBeanManagerToInitialContext() throws NamingException {
+        oldFactory = System.getProperty(JNDI_FACTORY_PROPERTY);
+
+        if (oldFactory == null) {
+            System.setProperty(JNDI_FACTORY_PROPERTY, "org.jglue.cdiunit.internal.naming.CdiUnitContextFactory");
+        }
+
+        initialContext = new InitialContext();
+        initialContext.bind("java:comp/BeanManager", container.getBeanManager());
     }
 
     private void shutdownWeld() throws NamingException {
