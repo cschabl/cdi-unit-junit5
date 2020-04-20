@@ -8,8 +8,10 @@ JUnit 5 Extension for [CDI-Unit](https://github.com/BrynCooke/cdi-unit).
 ## Usage
 
 ```java
-import cm.github.cschabl.cdiunit.junit5.CdiUnitExtension;
+import com.github.cschabl.cdiunit.junit5.CdiUnitExtension;
 
+// PER_CLASS lifecycle is supported:
+// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(CdiUnitExtension.class) // Runs the test with CDI-Unit
 class MyTest {
     @Inject
@@ -23,7 +25,7 @@ class MyTest {
 
 ### Prerequisites
 
-* JUnit 5.3 or higher
+* JUnit 5.4 or higher
 * CDI-Unit 4.x
 
 ### Maven
@@ -34,7 +36,7 @@ Add the cdi-unit-junit5 dependency:
 <dependency>
   <groupId>com.github.cschabl.cdi-unit-junit5</groupId>
   <artifactId>cdi-unit-junit5</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -92,7 +94,7 @@ dependencies {
     testImplementation "org.jglue.cdi-unit:cdi-unit:${cdi-unit-version}"
     testImplementation "org.jboss.weld.se:weld-se-core:${weld-version}"
 
-    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:0.2"
+    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:0.3"
     
     ...
 }
