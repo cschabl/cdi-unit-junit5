@@ -68,6 +68,7 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
         }
 
         try {
+            long start = System.currentTimeMillis();
             // extensionContext.getTestMethod() is an empty optional, here
             final TestConfiguration testConfig = createTestConfiguration(testClass, null);
 
@@ -94,6 +95,7 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
             };
 
             container = weld.initialize();
+            logger.fine(() -> "Initialization of container took " + (System.currentTimeMillis() - start) + " ms");
         }
         catch (ClassFormatError e) {
             throw parseClassFormatError(e);
