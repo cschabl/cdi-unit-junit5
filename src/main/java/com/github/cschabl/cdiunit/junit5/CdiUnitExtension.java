@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 /**
  * CdiUnitExtension is a JUnit5 test instance factory that uses a CDI container to create unit test objects.
  * Simply add <code>&#064;ExtendWith(CdiUnitExtension.class)</code> to your test class.
+ * This extension supports JUnit 5's PER_CLASS lifecycle (see {@code TestInstance.Lifecycle.PER_CLASS}).
  *
  * <pre>
  *   <code>
