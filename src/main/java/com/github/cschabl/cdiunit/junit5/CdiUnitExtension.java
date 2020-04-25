@@ -95,6 +95,8 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
                 }
             };
 
+            setJndiFactoryProperty();
+
             container = weld.initialize();
             logger.fine(() -> "Initialization of container took " + (System.currentTimeMillis() - start) + " ms");
         }
@@ -172,13 +174,15 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
         }
     }
 
-    private void bindBeanManagerToInitialContext() throws NamingException {
+    private void setJndiFactoryProperty(){
         oldFactory = System.getProperty(JNDI_FACTORY_PROPERTY);
 
         if (oldFactory == null) {
             System.setProperty(JNDI_FACTORY_PROPERTY, "org.jglue.cdiunit.internal.naming.CdiUnitContextFactory");
         }
+    }
 
+    private void bindBeanManagerToInitialContext() throws NamingException {
         initialContext = new InitialContext();
         initialContext.bind("java:comp/BeanManager", container.getBeanManager());
     }
