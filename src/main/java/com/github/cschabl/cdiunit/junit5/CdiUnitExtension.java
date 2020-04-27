@@ -179,6 +179,10 @@ public class CdiUnitExtension implements TestInstanceFactory, AfterEachCallback,
 
         if (oldFactory == null) {
             System.setProperty(JNDI_FACTORY_PROPERTY, "org.jglue.cdiunit.internal.naming.CdiUnitContextFactory");
+            logger.finer(() -> "set CdiUnitContextFactory as JNDI factory");
+        }
+        else {
+            logger.finer(() -> "JNDI factory already set to " + oldFactory);
         }
     }
 
