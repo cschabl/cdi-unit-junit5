@@ -36,12 +36,12 @@ Add the cdi-unit-junit5 dependency:
 <dependency>
   <groupId>com.github.cschabl.cdi-unit-junit5</groupId>
   <artifactId>cdi-unit-junit5</artifactId>
-  <version>0.3</version>
+  <version>0.4</version>
   <scope>test</scope>
 </dependency>
 ```
 
-Make sure you've added the CDI-Unit dependency and the prefered Weld SE dependency:
+Make sure you've added the CDI-Unit dependency and the preferred Weld SE dependency:
 
 ```xml
 <dependency>
@@ -69,7 +69,7 @@ And the JUnit 5 dependencies:
 <dependency>
   <groupId>org.junit.jupiter</groupId>
   <artifactId>junit-jupiter-api</artifactId>
-  <version>$${junit5-version}</version>
+  <version>${junit5-version}</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -78,7 +78,7 @@ And the JUnit 5 dependencies:
 <dependency>
   <groupId>org.junit.jupiter</groupId>
   <artifactId>junit-jupiter-engine</artifactId>
-  <version>$${junit5-version}</version>
+  <version>${junit5-version}</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -94,7 +94,7 @@ dependencies {
     testImplementation "org.jglue.cdi-unit:cdi-unit:${cdi-unit-version}"
     testImplementation "org.jboss.weld.se:weld-se-core:${weld-version}"
 
-    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:0.3"
+    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:0.4"
     
     ...
 }
