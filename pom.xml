@@ -34,9 +34,9 @@
 	<dependencies>
 		<!-- Version of CDI Unit and Weld dependency should be explicitly declared by consuming project -->
 		<dependency>
-			<groupId>org.jglue.cdi-unit</groupId>
+			<groupId>io.github.cdi-unit</groupId>
 			<artifactId>cdi-unit</artifactId>
-			<version>4.1.0</version>
+			<version>4.3.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
