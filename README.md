@@ -1,5 +1,5 @@
 # cdi-unit-junit5
-JUnit 5 Extension for [CDI-Unit](https://github.com/BrynCooke/cdi-unit).
+JUnit 5 Extension for [CDI-Unit](https://github.com/cdi-unit/cdi-unit).
 
 `CdiUnitExtension` of this project is the JUnit 5 counterpart of the JUnit 4 runner `CdiRunner` of CDI-Unit.
 
@@ -45,7 +45,7 @@ Make sure you've added the CDI-Unit dependency and the preferred Weld SE depende
 
 ```xml
 <dependency>
-  <groupId>org.jglue.cdi-unit</groupId>
+  <groupId>io.github.cdi-unit</groupId>
   <artifactId>cdi-unit</artifactId>
   <version>${cdi-unit-version}</version>
   <scope>test</scope>
@@ -107,11 +107,4 @@ The following features aren't supported:
 * Nested Tests (@Nested)
 * Test class constructors with parameters, i.e. JUnit 5 dependency injection to constructors.
 * Probably further JUnit-5-specific features.
-* CDI extension `@org.jglue.cdiunit.ProducerConfig`.
-
-### Liabilities
-
-cdi-unit-junit5 has a transitive dependency on JUnit 4, because CDI-Unit has one, 
-but assumes that the consuming project declares it explicitly (see [CDI-Unit PR #155](https://github.com/BrynCooke/cdi-unit/pull/155)). 
-To avoid unexpected exceptions at runtime with JUnit 5, 
-cdi-unit-junit5 has an explicit dependency on JUnit 4.12.
+* CDI extension `@io.github.cdiunit.ProducerConfig`.
