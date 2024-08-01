@@ -36,7 +36,7 @@ Add the cdi-unit-junit5 dependency:
 <dependency>
   <groupId>com.github.cschabl.cdi-unit-junit5</groupId>
   <artifactId>cdi-unit-junit5</artifactId>
-  <version>0.4</version>
+  <version>1.0</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -94,7 +94,7 @@ dependencies {
     testImplementation "org.jglue.cdi-unit:cdi-unit:${cdi-unit-version}"
     testImplementation "org.jboss.weld.se:weld-se-core:${weld-version}"
 
-    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:0.4"
+    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:1.0"
     
     ...
 }
