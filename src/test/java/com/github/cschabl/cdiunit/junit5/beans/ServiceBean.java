@@ -1,6 +1,6 @@
 package com.github.cschabl.cdiunit.junit5.beans;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class ServiceBean {
 

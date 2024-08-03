@@ -4,7 +4,7 @@
 
 	<groupId>com.github.cschabl.cdi-unit-junit5</groupId>
 	<artifactId>cdi-unit-junit5</artifactId>
-	<version>1.0</version>
+	<version>2.0-SNAPSHOT</version>
 	<name>CDI-Unit-JUnit-Extension</name>
 	<description>JUnit 5 extension for running CDI-Unit tests</description>
 	<url>https://github.com/cschabl/cdi-unit-junit5</url>
@@ -18,8 +18,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+		<maven.compiler.release>11</maven.compiler.release>
 		<maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
 		<junit.jupiter.version>5.10.3</junit.jupiter.version>
 	</properties>
@@ -37,19 +38,19 @@
 		<dependency>
 			<groupId>io.github.cdi-unit</groupId>
 			<artifactId>cdi-unit</artifactId>
-			<version>4.4.0</version>
+			<version>5.0.0-EA2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
 			<artifactId>weld-se-core</artifactId>
-			<version>3.0.4.Final</version>
+			<version>4.0.3.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<version>2.0.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -159,12 +160,6 @@
 								<goals>
 									<goal>sign</goal>
 								</goals>
-								<configuration>
-									<gpgArguments>
-										<arg>--pinentry-mode</arg>
-										<arg>loopback</arg>
-									</gpgArguments>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>
