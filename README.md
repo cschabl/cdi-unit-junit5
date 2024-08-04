@@ -26,7 +26,7 @@ class MyTest {
 ### Prerequisites
 
 * JUnit 5.4 or higher
-* CDI-Unit 4.x
+* CDI-Unit 5.0.0-EA2 or higher
 
 ### Maven
 
@@ -36,7 +36,7 @@ Add the cdi-unit-junit5 dependency:
 <dependency>
   <groupId>com.github.cschabl.cdi-unit-junit5</groupId>
   <artifactId>cdi-unit-junit5</artifactId>
-  <version>1.0</version>
+  <version>2.0-EA2</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -94,7 +94,7 @@ dependencies {
     testImplementation "org.jglue.cdi-unit:cdi-unit:${cdi-unit-version}"
     testImplementation "org.jboss.weld.se:weld-se-core:${weld-version}"
 
-    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:1.0"
+    testImplementation "com.github.cschabl.cdi-unit-junit5:cdi-unit-junit5:2.0-EA2"
     
     ...
 }
@@ -108,3 +108,8 @@ The following features aren't supported:
 * Test class constructors with parameters, i.e. JUnit 5 dependency injection to constructors.
 * Probably further JUnit-5-specific features.
 * CDI extension `@io.github.cdiunit.ProducerConfig`.
+
+## Releases
+
+- 2.x releases are based on CDI Unit 5.x and therefore on Jarkarta EE and Java 11
+- Releases < 2.0 are based on CDI Unit 4.x and therefore on Java EE and Java 1.8
